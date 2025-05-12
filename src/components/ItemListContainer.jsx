@@ -1,8 +1,7 @@
-// src/components/ItemListContainer.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProducts } from '../data/products';
-import Item from './Item';
+import ItemList from './ItemList';
 
 const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
@@ -19,11 +18,7 @@ const ItemListContainer = () => {
       <h2 className="mb-3">
         {categoryId ? `Categoría: ${categoryId}` : 'Catálogo completo'}
       </h2>
-      <div className="d-flex flex-wrap justify-content-start">
-        {products.map(p => (
-          <Item key={p.id} product={p} />
-        ))}
-      </div>
+      <ItemList products={products} />
     </div>
   );
 };

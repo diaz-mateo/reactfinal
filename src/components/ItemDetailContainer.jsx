@@ -1,13 +1,14 @@
-// src/components/ItemDetailContainer.jsx
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById } from '../data/products';
 import { useCart } from '../context/CartContext';
+import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
   const { itemId } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProductById(itemId)
@@ -15,29 +16,14 @@ const ItemDetailContainer = () => {
       .catch(err => console.error(err));
   }, [itemId]);
 
+  const handleAdd = (product, qty) => {
+    addToCart(product, qty);
+    navigate('/cart');
+  };
+
   if (!product) return <p className="m-4">Cargando producto...</p>;
 
-  return (
-    <div className="container mt-5">
-      <h2>{product.name}</h2>
-      <p className="lead">Precio: ${product.price}</p>
-      <p>{product.description}</p>
-      <div className="mt-3 d-flex">
-        <button
-          className="btn btn-success me-2"
-          onClick={() => addToCart(product, 1)}
-        >
-          Agregar al carrito
-        </button>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => window.history.back()}
-        >
-          ← Volver
-        </button>
-      </div>
-    </div>
-  );
+  return <ItemDetail product={product} onAdd={handleAdd} />;
 };
 
 export default ItemDetailContainer;

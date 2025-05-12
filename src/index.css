@@ -1,5 +1,10 @@
 /* src/index.css */
 
+/* — Directivas de Tailwind — */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* — Variables de tema — */
 :root {
   --bg-color:      #f8f9fa;
@@ -16,15 +21,14 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   background-color: var(--bg-color);
-  color:            var(--text-color);
-  font-family:      system-ui, sans-serif;
-  min-height:       100vh;
-
-  /* Fondo full-screen; ajusta la ruta si necesitas */
+  color: var(--text-color);
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
   background-image: url('/assets/bg-pattern.jpg');
-  background-size:  cover;
+  background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
@@ -48,9 +52,11 @@ body {
   box-shadow: 0 2px 8px var(--card-shadow);
   transition: transform 0.2s;
 }
+
 .card:hover {
   transform: translateY(-5px);
 }
+
 .card-img-top {
   object-fit: cover;
   height: 12rem;
@@ -60,24 +66,30 @@ body {
 .btn {
   transition: background-color 0.3s, transform 0.2s, filter 0.2s;
 }
+
 .btn-primary {
   background-color: var(--primary-color);
-  border-color:     var(--primary-color);
+  border-color: var(--primary-color);
 }
+
 .btn-primary:hover {
   filter: brightness(1.1);
 }
+
 .btn-success {
   background-color: var(--success-color);
-  border-color:     var(--success-color);
+  border-color: var(--success-color);
 }
+
 .btn-success:hover {
   filter: brightness(1.1);
 }
+
 .btn-danger {
   background-color: var(--danger-color);
-  border-color:     var(--danger-color);
+  border-color: var(--danger-color);
 }
+
 .btn-danger:hover {
   filter: brightness(1.1);
 }
@@ -86,10 +98,12 @@ body {
 h1, h2, h3, h4, h5 {
   margin-bottom: 1rem;
 }
+
 a {
   color: var(--primary-color);
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
