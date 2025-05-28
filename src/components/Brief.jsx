@@ -1,9 +1,15 @@
+// src/components/Brief.jsx
 import React from 'react';
 
-const Brief = ({ buyer, items, total }) => (
+const Brief = ({ buyer, items, total, orderId }) => (
   <div className="container mt-5">
     <h2>¡Gracias por tu compra, {buyer.name}!</h2>
     <p>Hemos enviado un correo de confirmación a <strong>{buyer.email}</strong>.</p>
+    
+    <div className="alert alert-success mt-3">
+      Tu número de orden es: <strong>{orderId}</strong>
+    </div>
+
     <h4 className="mt-4">Resumen de tu orden:</h4>
     <ul className="list-group mb-3">
       {items.map(item => (
@@ -13,6 +19,7 @@ const Brief = ({ buyer, items, total }) => (
         </li>
       ))}
     </ul>
+
     <h5>Total: ${total}</h5>
   </div>
 );

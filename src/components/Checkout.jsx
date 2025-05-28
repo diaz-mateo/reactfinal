@@ -1,26 +1,49 @@
+// src/components/Checkout.jsx
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import Brief from './Brief';
+import { db } from '../firebaseConfig';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const Checkout = () => {
-  const { cartItems, cartCount } = useCart();
-  const [buyer, setBuyer] = useState({ name: '', email: '' });
-  const [orderPlaced, setOrderPlaced] = useState(false);
+  const { cartItems, cartCount, getTotalPrice, clearCart } = useCart();
+  const [buyer, setBuyer] = useState({ name: '', email: '', phone: '' });
+  const [orderId, setOrderId] = useState(null);
 
-  const total = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const total = getTotalPrice();
 
   const handleChange = e => {
     setBuyer({ ...buyer, [e.target.name]: e.target.value });
   };
-
-  const handleSubmit = e => {
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí podrías llamar a una API o generar un ID de orden
-    setOrderPlaced(true);
+
+    const order = {
+      buyer,
+      items: cartItems.map(item => ({
+        id: item.id,
+        title: item.name,
+        price: item.price,
+        quantity: item.quantity
+      })),
+      total,
+      date: serverTimestamp()
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, 'orders'), order);
+      setOrderId(docRef.id);
+      clearCart();
+    } catch (error) {
+      console.error("Error al generar la orden:", error);
+      alert("Ocurrió un error al generar tu orden. Inténtalo de nuevo.");
+    }
   };
 
-  if (orderPlaced) {
-    return <Brief buyer={buyer} items={cartItems} total={total} />;
+  // Mostrar resumen si la orden se generó
+  if (orderId) {
+    return <Brief buyer={buyer} items={cartItems} total={total} orderId={orderId} />;
   }
 
   return (
@@ -34,6 +57,17 @@ const Checkout = () => {
             name="name"
             className="form-control"
             value={buyer.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Teléfono</label>
+          <input
+            type="tel"
+            name="phone"
+            className="form-control"
+            value={buyer.phone}
             onChange={handleChange}
             required
           />
