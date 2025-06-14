@@ -1,21 +1,18 @@
-/* src/index.css */
-
-/* — Directivas de Tailwind — */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* — Variables de tema — */
+/* === Variables === */
 :root {
-  --bg-color:      #f8f9fa;
-  --text-color:    #212529;
-  --card-shadow:   rgba(0, 0, 0, 0.1);
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --card-shadow: rgba(0, 0, 0, 0.1);
   --primary-color: #4a90e2;
   --success-color: #28a745;
-  --danger-color:  #dc3545;
+  --danger-color: #dc3545;
 }
 
-/* — Reset global y body — */
+/* === Reset y globales === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -27,95 +24,131 @@ body {
   color: var(--text-color);
   font-family: system-ui, sans-serif;
   min-height: 100vh;
-  background-image: url('/assets/bg-pattern.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
-/* — Contenedores responsivos full-width — */
-.container-fluid {
-  padding: 2rem 1rem;
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
 }
 
-/* — Diseño del grid de productos — */
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
-  gap: 1rem;
-}
-
-/* — Estilos de tarjetas — */
-.card {
-  border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 8px var(--card-shadow);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.card-img-top {
-  object-fit: cover;
-  height: 12rem;
-}
-
-/* — Botones con hover y transiciones suaves — */
-.btn {
-  transition: background-color 0.3s, transform 0.2s, filter 0.2s;
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-  filter: brightness(1.1);
-}
-
-.btn-success {
-  background-color: var(--success-color);
-  border-color: var(--success-color);
-}
-
-.btn-success:hover {
-  filter: brightness(1.1);
-}
-
-.btn-danger {
-  background-color: var(--danger-color);
-  border-color: var(--danger-color);
-}
-
-.btn-danger:hover {
-  filter: brightness(1.1);
-}
-
-/* — Tipografía y enlaces — */
+/* === Tipografía y enlaces === */
 h1, h2, h3, h4, h5 {
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 a {
   color: var(--primary-color);
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
 
-/* — Inputs numéricos en el carrito — */
+/* === Cards === */
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px var(--card-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.card-img-top {
+  object-fit: cover;
+  height: 12rem;
+  width: 100%;
+}
+
+/* === Botones === */
+.btn {
+  transition: background-color 0.3s, transform 0.2s, filter 0.2s;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+.btn-success:hover {
+  filter: brightness(1.1);
+}
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+.btn-danger:hover {
+  filter: brightness(1.1);
+}
+
+/* === Inputs === */
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border-radius: 4px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+}
 input[type="number"] {
   text-align: center;
 }
 
-/* — Media queries para móviles — */
-@media (max-width: 576px) {
-  .product-grid {
-    grid-template-columns: 1fr;
+/* === Productos === */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+/* === Carrito === */
+.cart-summary {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* === Navbar responsiva === */
+.navbar-collapse.show {
+  display: block !important;
+  background-color: #212529;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+}
+.navbar-nav .nav-link:hover {
+  color: #4a90e2 !important;
+}
+
+@media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto !important;
+    align-items: center !important;
+  }
+  .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    margin-left: auto;
+  }
+  .navbar-nav .nav-item {
+    margin-left: 1rem;
   }
 }

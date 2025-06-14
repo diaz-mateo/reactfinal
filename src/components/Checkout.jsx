@@ -4,20 +4,27 @@ import { useCart } from '../context/CartContext';
 import Brief from './Brief';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 
 const Checkout = () => {
   const { cartItems, cartCount, getTotalPrice, clearCart } = useCart();
   const [buyer, setBuyer] = useState({ name: '', email: '', phone: '' });
   const [orderId, setOrderId] = useState(null);
+  const [error, setError] = useState(null);
 
   const total = getTotalPrice();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setBuyer({ ...buyer, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (cartItems.length === 0) {
+      setError('Tu carrito está vacío.');
+      return;
+    }
 
     const order = {
       buyer,
@@ -35,13 +42,12 @@ const Checkout = () => {
       const docRef = await addDoc(collection(db, 'orders'), order);
       setOrderId(docRef.id);
       clearCart();
-    } catch (error) {
-      console.error("Error al generar la orden:", error);
-      alert("Ocurrió un error al generar tu orden. Inténtalo de nuevo.");
+    } catch (err) {
+      console.error("Error al generar la orden:", err);
+      setError('Ocurrió un error al generar tu orden. Inténtalo de nuevo.');
     }
   };
 
-  // Mostrar resumen si la orden se generó
   if (orderId) {
     return <Brief buyer={buyer} items={cartItems} total={total} orderId={orderId} />;
   }
@@ -49,6 +55,20 @@ const Checkout = () => {
   return (
     <div className="container mt-5">
       <h2>Checkout</h2>
+
+      {error && (
+        <div className="alert alert-danger mt-3" role="alert">
+          {error}
+        </div>
+      )}
+
+      {cartItems.length === 0 && !orderId && (
+        <div className="alert alert-warning mt-3" role="alert">
+          No hay productos en el carrito.{" "}
+          <Link to="/" className="alert-link">Volver al catálogo</Link>.
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-3">
           <label className="form-label">Nombre completo</label>
@@ -83,7 +103,7 @@ const Checkout = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" disabled={cartItems.length === 0}>
           Finalizar Compra ({cartCount} ítems, Total: ${total})
         </button>
       </form>

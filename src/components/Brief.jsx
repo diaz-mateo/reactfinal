@@ -1,13 +1,19 @@
 // src/components/Brief.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Brief = ({ buyer, items, total, orderId }) => (
   <div className="container mt-5">
-    <h2>¡Gracias por tu compra, {buyer.name}!</h2>
-    <p>Hemos enviado un correo de confirmación a <strong>{buyer.email}</strong>.</p>
-    
-    <div className="alert alert-success mt-3">
-      Tu número de orden es: <strong>{orderId}</strong>
+    <div className="alert alert-success" role="alert">
+      <h2>¡Gracias por tu compra, {buyer.name}!</h2>
+      <p>
+        Se ha enviado un correo de confirmación a <strong>{buyer.email}</strong>.
+      </p>
+      {orderId && (
+        <p>
+          Tu número de orden es: <strong>{orderId}</strong>
+        </p>
+      )}
     </div>
 
     <h4 className="mt-4">Resumen de tu orden:</h4>
@@ -19,8 +25,11 @@ const Brief = ({ buyer, items, total, orderId }) => (
         </li>
       ))}
     </ul>
+    <h5 className="fw-bold">Total: ${total}</h5>
 
-    <h5>Total: ${total}</h5>
+    <Link to="/" className="btn btn-outline-primary mt-4">
+      Volver al catálogo
+    </Link>
   </div>
 );
 
