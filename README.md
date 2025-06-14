@@ -1,19 +1,56 @@
-# React + Vite
+# 🛒 Mi E-commerce App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este es mi proyecto final del curso de React JS. Se trata de una tienda en línea donde los usuarios pueden:
 
-Currently, two official plugins are available:
+- Ver un catálogo de productos filtrado por categorías
+- Ver el detalle de cada producto
+- Agregar productos al carrito
+- Modificar cantidades y eliminar productos
+- Finalizar la compra llenando un formulario
+- Generar una orden que se guarda en Firebase
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+- React JS
+- React Router
+- Firebase (Firestore)
+- Bootstrap 5
+- Context API
+- Vite
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# reactpreentrega2
-# finalreact
-# finalreact
-# reactmyecommerce
-# reactmyecommerce
-# reactmycomercio
-# finalreactmce
+## 🔧 Funcionalidades
+
+- Navegación por categorías (`/category/:categoryId`)
+- Vista de detalle de producto (`/item/:itemId`)
+- Carrito con cantidad dinámica (`cartCount`)
+- Checkout con validación de formulario
+- Guardado de orden en Firebase Firestore
+
+## 📸 Vista previa
+
+Incluye aquí tu video o capturas de pantalla
+
+## 📂 Estructura del proyecto
+
+src/
+├── components/
+├── context/
+├── firebaseConfig.js
+├── App.jsx
+├── main.jsx
+└── index.css
+
+
+## ✅ Cómo ejecutar
+
+1. Clona el repositorio
+2. Instala dependencias:
+   ```bash
+   npm install
+3. Inicia la app: npm run dev
+
+## 📸 Vista previa
+
+¡Aquí puedes ver cómo funciona la app! 👇
+
+![Demo de la app](./src/assets/demo.gif.gif)# reactfinal
